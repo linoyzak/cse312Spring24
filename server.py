@@ -5,15 +5,18 @@ from pymongo import MongoClient
 
 
 app = Flask(__name__)
-mongo_client = MongoClient("localhost") 
+mongo_client = MongoClient("mongo") 
 db = mongo_client["Theranos"] 
 users = db["users"]
 
 
-@app.route('/',methods=["GET"])
+@app.route('/', methods=["GET"])
 def index():
-    print("We here")
     return render_template('index.html')
+
+@app.route('/styles.css', methods=["GET"])
+def style():
+    return render_template("/static/css/style.css")
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -42,11 +45,6 @@ def signup():
         return render_template('login.html')
     return render_template('signup.html')
     
-@app.route('/style',methods=["GET", "POST"])
-def style():
-    print("We here")
-    return render_template('style.css')
 
-
-#On deployment change localhost to 0.0.0.0
-app.run(port=8080, host='localhost')
+if __name__=='__main__':
+    app.run(port= 8080, host="0.0.0.0")
