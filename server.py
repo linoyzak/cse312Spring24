@@ -82,6 +82,10 @@ def logout():
         session.pop('username', None)
     return redirect(url_for('index'))
   
+@app.after_request
+def set_response_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    return response  
 
 if __name__=='__main__':
     app.run(port= 8080, host="0.0.0.0")
