@@ -11,6 +11,7 @@ mongo_client = MongoClient("mongo")
 db = mongo_client["Theranos"] 
 users = db["users"]
 tokens = db["tokens"]
+posts = db["posts"]
 app.secret_key = 'a'
 
 
