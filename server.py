@@ -91,8 +91,11 @@ def feed():
             'author': username, 
         })
         print(content)
-    all_posts = posts.find()
-    return render_template('feed.html', posts=all_posts) 
+        all_posts = posts.find()
+        return redirect(url_for('feed'))
+    else:
+        all_posts = posts.find()
+        return render_template('feed.html', posts=all_posts) 
   
 @app.after_request
 def set_response_headers(response):
