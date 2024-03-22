@@ -13,8 +13,6 @@ users = db["users"]
 tokens = db["tokens"]
 posts = db["posts"]
 app.secret_key = 'a'
-
-
 @app.route('/', methods=["GET", "POST"])
 def index():
     token = request.cookies.get('token', None)
@@ -82,6 +80,20 @@ def logout():
         tokens.delete_one({"username": username})
         session.pop('username', None)
     return redirect(url_for('index'))
+
+@app.route("/feed", methods = ['POST','GET'])
+def feed():
+    if request.method == 'POST':
+        content = request.form['post_content'] 
+        username = session.get('username')
+        posts.insert_one({
+            'content': content,
+            'author': username, 
+        })
+        print(content)
+    # Display posts
+    all_posts = posts.find()
+    return render_template('feed.html', posts=all_posts) 
   
 @app.after_request
 def set_response_headers(response):

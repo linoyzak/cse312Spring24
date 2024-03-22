@@ -1,53 +1,45 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>CSE312 Project App</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/styles.css"/>
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="/public/favicon.ico"> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css"/>
 </head>
+<body>
+    <header>
+        <h1>The Feed  </h1>
+            <p>Welcome, {{ username }}! <a href="/logout">               Logout!</a></p>
+    </header>
+    <section id="post-creation">
+        <h2>Create a Post</h2>
+        <form action="/feed" method="POST"> 
+            <textarea name="post_content" placeholder="CREATE A POST BY TYPING HERE......"></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </section>
+        <!-- <h2>Create a Post</h2>
+        
+            <form action="/feed" method="POST">
+                <textarea name="post_content" placeholder="CREATE A POST BY TYPING HERE......"></textarea>
+                <button type="submit" value="posting">Post</button>
+            </form> -->
 
-<body onload="welcome();">
+        <section id="posts-section">
+            <h3>Recent Posts</h3>
+            {% for post in posts %}
+                <div class="post">
+                    <p><strong>{{ post.author }}:</strong> {{ post.content }}</p>
+                </div>
+                <div class="post-actions">
+                    <button class="like">Like</button> 
+                    <button class="share">Share</button> 
+                    <button class="comment">Comment</button>  
+                </div>
+            {% else %}
+                <p>No posts yet! Be the first to share something.</p>
+            {% endfor %}
+        </section>
 
-<div class="title">
-    <h2>Spotify Visualize</h2>
-</div>
-
-<div class="header">
-    
-    <div class="welcome-div">
-        <p id="paragraph">
-            Welcome to Theranos
-        </p>
-    </div>
-</div>
-
-
-<div class="contents">
-
-    <div class="chat">
-
-
-        <div id="chat-messages">
-        </div>
-
-
-        <div class="chat-form">
-            <hr>
-            <label>
-                Chat:
-                <input id="chat-text-box" type="text">
-            </label>
-            <button id="chat-button" onclick="sendChat()">Send</button>
-        </div>
-
-    </div>
-
-
-
-    </div>
-</div>
-
-
-<script src="../static/js/functions.js"></script>
-<!-- <script src="/public/webrtc.js"></script> -->
 </body>
 </html>
