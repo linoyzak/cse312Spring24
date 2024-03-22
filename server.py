@@ -3,6 +3,7 @@ import bcrypt
 from pymongo import MongoClient
 import secrets
 import hashlib
+import uuid
 
 
 
@@ -60,7 +61,7 @@ def signup():
             flash("Passwords do not match.")
             return redirect(url_for('signup_page')) 
         salted = bcrypt.hashpw(password, bcrypt.gensalt())
-        data = {"email": email, "username":username,"password":salted}
+        data = {"email": email, "username":username,"password":salted, "likedposts": []}
         users.insert_one(data)
         return render_template('index.html')
     
@@ -85,12 +86,12 @@ def logout():
 def feed():
     if request.method == 'POST':
         username = session.get('username')
-        content = request.form['post_content'] 
-        posts.insert_one({
-            'content': content,
-            'author': username, 
-        })
-        print(content)
+        content = request.form['post_content']
+        pid = uuid.uuid4() 
+        posts.insert_one({'content': content,'author': username, "postid": pid })
+        user = users.find_one({"username": username})
+        liked = user["likedposts"]
+        liked.append(pid)
         all_posts = posts.find()
         return redirect(url_for('feed'))
     else:
