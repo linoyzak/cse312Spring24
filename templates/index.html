@@ -15,7 +15,7 @@
         <h2>Welcome to Spotify Unwrapped!</h2>
         <p>Discover insights and visualize your Spotify data</p>
         <p>Sign up today or login to view your charts</p>
-        {% if username != None %}
+        {% if username %}
             <p>Welcome back, {{ username }}!</p>
             <form action="/logout" method="post">
                 <ul>
@@ -28,8 +28,8 @@
             <ul>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="signup.html">Sign up!</a></li>
-                <li><a href="/feed">Check Feed</a></li>
-                <input type="submit" value="Logout">
+                <!-- <li><a href="/feed">Check Feed</a></li> -->
+                <!-- <input type="submit" value="Logout"> -->
             </ul>
         </form>
         {% endif %}

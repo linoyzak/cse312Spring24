@@ -76,7 +76,7 @@ def login_p():
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     username = session.get('username')
-    if username:
+    if username != None:
         tokens.delete_one({"username": username})
         session.pop('username', None)
     return redirect(url_for('index'))
@@ -84,14 +84,13 @@ def logout():
 @app.route("/feed", methods = ['POST','GET'])
 def feed():
     if request.method == 'POST':
-        content = request.form['post_content'] 
         username = session.get('username')
+        content = request.form['post_content'] 
         posts.insert_one({
             'content': content,
             'author': username, 
         })
         print(content)
-    # Display posts
     all_posts = posts.find()
     return render_template('feed.html', posts=all_posts) 
   
