@@ -31,7 +31,8 @@ def style():
     return render_template("/static/css/style.css")
 @app.route('/functions.js', methods=["GET"])
 def js():
-    return render_template("/static/js/functions.js")
+    return render_template("/static/js/functions.js")\
+# a
 @app.route('/login', methods=["GET", "POST"])
 def login():
     currmeth = request.method
