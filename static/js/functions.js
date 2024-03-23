@@ -1,6 +1,5 @@
 const ws = false;
 let socket = null;
-
 function initWS() {
     // Establish a WebSocket connection with the server
     socket = new WebSocket('ws://' + window.location.host + '/websocket');
@@ -27,6 +26,22 @@ function deleteMessage(messageId) {
     }
     request.open("DELETE", "/chat-messages/" + messageId);
     request.send();
+}
+// by chris
+function likeMessage(postID) {
+    console.log("Here's your post: " + postID);
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200
+
+
+        ) {
+            console.log(this.response);
+        }
+    };
+    request.open("POST", "/like");
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(JSON.stringify({postID: postID}));
 }
 
 function chatMessageHTML(messageJSON) {
@@ -93,8 +108,6 @@ function welcome() {
             sendChat();
         }
     });
-
-
     document.getElementById("paragraph").innerHTML += "<br/>This text was added by JavaScript 😀";
     document.getElementById("chat-text-box").focus();
 
