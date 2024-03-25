@@ -77,6 +77,10 @@ def signup_page():
 def login_p():
     return render_template('login.html')
 
+@app.route('/images.jpeg', methods = ['GET']) 
+def render():
+    return render_template("/static/images/images.jpeg")
+
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     username = session.get('username')
