@@ -104,7 +104,7 @@ def feed():
         # print(all_posts)
         return render_template('feed.html', posts=all_posts)
 
-@app.route("/like", methods=['POST, GET'])
+@app.route("/like", methods=['POST'])
 def likePost():
     # Retrieve the messageId from the request body
     postID = request.json.get('postID')
