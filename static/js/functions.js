@@ -1,4 +1,3 @@
-
 // by chris
 function likeMessage(postID) {
     console.log("Here's your post: " + postID);
