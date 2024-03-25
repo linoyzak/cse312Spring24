@@ -98,6 +98,7 @@ def feed():
             'content': content,
             'author': username,
             'likes': 0,
+            "likedBy": [],
             "postID": str(uuid.uuid4())
         })
         # print(content)
@@ -119,11 +120,14 @@ def likePost():
     # if it isnt, increment the post's likes column by 1 and add the post to user's liked posts column
     if postID not in liked_posts:
         posts.update_one({"postID": postID}, {"$inc": {"likes": 1}})
+        posts.update_one({"postID": postID}, {"$push": {"likedBy": username}})
         users.update_one({"username": username}, {"$push": {"liked_posts": postID}})
+
         return redirect(url_for('feed'))
     # else, subtract one like from the post and remove it from user's liked posts data column
     else:
         posts.update_one({"postID": postID}, {"$inc": {"likes": -1}})
+        posts.update_one({"postID": postID}, {"$pull": {"likedBy": username}})
         users.update_one({"username": username}, {"$pull": {"liked_posts": postID}})
         return redirect(url_for('feed'))
 
