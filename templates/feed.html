@@ -35,7 +35,7 @@
                     <p>{{ post.postID }}</p>
                     -->
                     <p>Likes: {{ post.likes }}</p>
-                    <p>Liked by: {{ post.likedBy }}</p>
+                    <p>Liked by: {{ ", ".join(post.likedBy) }}</p>
                 </div>
                 <div class="post-actions">
                     <button class="like" onclick="likeMessage('{{ post.postID }}')">Like</button>
